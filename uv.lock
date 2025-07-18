@@ -2337,7 +2337,7 @@ requires-dist = [
     { name = "numpy", specifier = "~=1.26.0" },
     { name = "orjson" },
     { name = "pandas", specifier = ">=2.0.0" },
-    { name = "python-dotenv", specifier = "==1.0.0" },
+    { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "ray" },
     { name = "scipy", specifier = "~=1.11.3" },
     { name = "statsforecast", marker = "extra == 'baseline'" },
