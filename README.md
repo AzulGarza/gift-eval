@@ -1,6 +1,9 @@
 # GIFT-EVAL: A Benchmark for General Time Series Forecasting Model Evaluation
 
-[Paper](https://arxiv.org/abs/2410.10393) | [Blog Post]() | [Train-Test Dataset](https://huggingface.co/datasets/Salesforce/GiftEval) | [Pretrain Dataset](https://huggingface.co/datasets/Salesforce/GiftEvalPretrain) | [Leaderboard](https://huggingface.co/spaces/Salesforce/GIFT-Eval)
+[![arXiv](https://img.shields.io/badge/GiftEval-2402.02592-b31b1b.svg)](https://arxiv.org/abs/2410.10393)
+[![huggingface](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-TrainTestDataset-FFD21E)](https://huggingface.co/datasets/Salesforce/GiftEval) 
+[![huggingface](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-PretrainDataset-FFD21E)](https://huggingface.co/datasets/Salesforce/GiftEvalPretrain)
+[![huggingface](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-LeaderBoard-FFD21E)](https://huggingface.co/spaces/Salesforce/GIFT-Eval)
 
 ![gift eval main figure](artefacts/gifteval.png)
 
@@ -12,10 +15,21 @@
 | BasicTS+ (Shao et al., 2023)   | Minutely ~ Daily  | 3              | No               | Multi        | Short/Long | Stat./DL          | No                |
 | GIFT-Eval (our work)           | Secondly ~ Yearly | 7              | Yes              | Uni/Multi    | Short/Long | Stat./DL/FM       | Yes               |
 
-
 GIFT-Eval is a comprehensive benchmark designed to evaluate general time series forecasting models across diverse datasets, promoting the advancement of zero-shot forecasting capabilities in foundation models.
 
 To facilitate the effective pretraining and evaluation of foundation models, we also provide a non-leaking pretraining dataset --> [GiftEvalPretrain](https://huggingface.co/datasets/Salesforce/GiftEvalPretrain).
+
+## Update Log
+
+### 2025‑07‑24
+
+- Corrected the Naive and Seasonal Naive scores to match the latest GIFT‑Eval notebooks. Most model rankings remain unchanged; only a few near the bottom shifted slightly (AutoETS and Timer each dropped two places now at 35th and 36th places respectively, while NBEATS moved up one now at 27th place).
+### 2025-08-05
+
+- Added new columns to the leaderboard: Organization, TestData Leakage, and MASE_Rank. TestData Leakage is a binary indicator specifying whether any test data was present in the training set. MASE_Rank reflects the model's ranking based on the MASE metric, aligned with the ranking scheme used for CRPS_Rank. These additions were made in response to multiple requests from independent groups seeking fairer comparisons. With these updates, the leaderboard now supports sorting by models that do not leak test data, and viewers can choose to rank models based on either MASE_Rank or CRPS_Rank, depending on their use case.
+
+- Added new model type: Agentic to indicate submissions that use agentic system to generate the forecasts.
+
 ## Installation
 1. Clone the repository and change the working directory to `GIFT_Eval`.
 2. Create a conda environment:
@@ -111,9 +125,11 @@ Submit your results to the leaderboard by creating a pull request that adds your
 ```json
 {
     "model": "YOUR_MODEL_NAME",
-    "model_type": "one of statistical, deep-learning, or pretrained",
+    "model_type": "one of statistical, deep-learning, agentic or pretrained",
     "model_dtype": "float32, etc."
-    "model_link": "To your HF model link, e.g., https://huggingface.co/amazon/chronos-t5-small"
+    "model_link": "To your HF model link, e.g., https://huggingface.co/amazon/chronos-t5-small",
+    "org": "YOUR_ORG_NAME",
+    "testdata_leakage": "one of Yes or No" 
 }
 ```
 
